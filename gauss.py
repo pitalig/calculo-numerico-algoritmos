@@ -1,5 +1,6 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
+import constr_matriz
 
 
 def gauss(a, y, n):
@@ -35,6 +36,15 @@ def gauss(a, y, n):
             x[i] -= a[i][j] * x[j]
         x[i] = x[i] / a[i][i]
     return x
+
+
+def v_gauss(q, r, x, h, n, a_, b_):
+    # Matriz e vetor de termos independentes
+    m_h = constr_matriz.constr_matriz(q, x, h, n)
+    v_h = constr_matriz.constr_vetor(r, x, h, n, a_, b_)
+
+    # Vetor solução
+    return gauss(m_h, v_h, n - 1)
 
 # ----------------teste----------------
 if __name__ == "__main__":

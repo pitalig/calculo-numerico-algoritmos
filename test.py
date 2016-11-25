@@ -39,6 +39,7 @@ b_ = y(b)
 n = int(input("Insira o valor máximo de n: "))
 
 e = []
+e_max = []
 
 for n in range(5, n+1, 5):
     # print("##### Para n = ", n, "#####")
@@ -55,25 +56,21 @@ for n in range(5, n+1, 5):
     # print("Solução real")
     # print(np.matrix(v_sol))
 
-    # Matriz e vetor de termos independentes
-    m_h = constr_matriz.constr_matriz(q, x, h, n)
-    v_h = constr_matriz.constr_vetor(r, x, h, n, a_, b_)
-
-    # Vetor solução pelo método de Gauss
-    v_gauss = gauss.gauss(m_h, v_h, n-1)
+    v_gauss = gauss.v_gauss(q, r, x, h, n, a_, b_)
     # print("Solução Gauss")
     # print(np.matrix(v_gauss))
 
     # Comparação entre soluções
     dif = abs(np.matrix(v_sol) - np.matrix(v_gauss))
-    e.append(np.max(dif))
+    e.append(dif)
+    e_max.append(np.max(dif))
     # print("Diferença entre real e gauss (Erro)")
     # print(dif)
     # print("Erro máximo")
     # print(np.max(dif))
 
 print(e)
-plt.semilogy(range(5, n+1, 5), e, 'ko')
+plt.semilogy(range(5, n+1, 5), e_max, 'ko')
 plt.ylabel('Erro')
 plt.xlabel('n')
 plt.title('Erro')
