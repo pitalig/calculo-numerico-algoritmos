@@ -1,2 +1,2 @@
-# numerical-analysis-algorithms
-Project for Numerical Analysis class at Universidade Federal do ABC
+# Algoritmos de Cálculo Numérico
+Projeto de Cálculo Numérico - Universidade Federal do ABC
