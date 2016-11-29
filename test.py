@@ -1,11 +1,12 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
 import math
+
+import matplotlib.pyplot as plt
 import numpy as np
-import constr_matriz
+
 import gauss
 import solve
-import matplotlib.pyplot as plt
 
 
 def y(x):  # Função y(x)
@@ -53,8 +54,8 @@ for n in range(5, n+1, 5):
 
     # Vetor solução real
     v_sol = solve.solve(y, x, n)
-    # print("Solução real")
-    # print(np.matrix(v_sol))
+    print("Solução real")
+    print(np.matrix(v_sol))
 
     v_gauss = gauss.v_gauss(q, r, x, h, n, a_, b_)
     # print("Solução Gauss")
