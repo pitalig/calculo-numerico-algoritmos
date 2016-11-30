@@ -1,3 +1,5 @@
+#!/usr/bin/env
+# -*- coding: utf-8 -*-
 from pprint import pprint
 
 import numpy as np
