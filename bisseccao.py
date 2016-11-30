@@ -7,17 +7,17 @@ import numpy as np
 
 def bissec(f, m1, m2, tol, crit_parada):
     tab = [["iter", "m1", "m2", "alpha", "f(alpha)"]]
-    iter = 0
+    itera = 0
     bool_val = True
-    while(bool_val):
+    while bool_val:
         alpha = 0.5 * (m1 + m2)
-        linha = [iter, m1, m2, alpha, f(alpha)]
+        linha = [itera, m1, m2, alpha, f(alpha)]
         tab.append(linha)
         if f(alpha) * f(m1) < 0:
             m2 = alpha
         if f(alpha) * f(m1) > 0 or f(alpha) * f(m1) == 0:
             m1 = alpha
-        iter += 1
+        itera += 1
         if crit_parada == 0:
             bool_val = (0.25 * abs(m1 - m2) > tol)
         elif crit_parada == 1:

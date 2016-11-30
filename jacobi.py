@@ -3,7 +3,7 @@
 import math
 
 
-def jacobi(q, x, h, y, tol, n_max, n):
+def v_sol(q, x, h, y, tol, n_max, n):
     w_0 = [0] * (n - 1)
     w_new = w_0.copy()
     w_old = []
@@ -48,4 +48,4 @@ if __name__ == "__main__":
     for i in range(1, n):
         x.append(a + i * h)
 
-    print(jacobi(q, x, h, y, 0.0001, 100, n))
+    print(v_sol(q, x, h, y, 0.0001, 100, n))

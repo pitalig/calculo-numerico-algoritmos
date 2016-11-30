@@ -24,12 +24,14 @@ def falsaposicao(f, m1, m2, tol):
 
     return tab
 
+
 # ----------------teste----------------
 if __name__ == "__main__":
     def f(x):
-        return 3 * math.pow(x, 3) - 2 * math.pow(x,2) + 3 * x - 2
+        return 3 * math.pow(x, 3) - 2 * math.pow(x, 2) + 3 * x - 2
 
-    print 'teste1'
+
+    print('teste1')
 
     tol = math.pow(10, -6)
     m1 = 0.6
@@ -39,7 +41,7 @@ if __name__ == "__main__":
 
     # TESTE 5
 
-    print 'teste2'
+    print('teste2')
 
     tol = math.pow(10, -6)
     m1 = -7
@@ -49,7 +51,7 @@ if __name__ == "__main__":
 
     # TESTE 6
 
-    print 'teste3'
+    print('teste3')
 
     tol = math.pow(10, -6)
     m1 = 0
