@@ -27,7 +27,7 @@ def v_sol(m, v, n_max, tol):
         if np.allclose(x, x_old, tol):
             break
     # Retorna o vetor solução
-    return x
+    return x.tolist()
 
 
 # Calcula o vetor solução, para a matriz de uma equação, pelo método de Jacobi.

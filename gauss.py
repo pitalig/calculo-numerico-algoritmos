@@ -27,10 +27,10 @@ def v_sol(m, v, n):
                     m[j] = temp
                     break
         for i in range(j + 1, n):
-            m = - m[i][j] / m[j][j]
+            mult = - m[i][j] / m[j][j]
             for k in range(j, n):
-                m[i][k] += m * m[j][k]
-            v[i] += m * v[j]
+                m[i][k] += mult * m[j][k]
+            v[i] += mult * v[j]
     # print("Matriz escalonada:")
     # print(np.matrix(m))
     # print("Vetor auxiliar após escalonamento:")
@@ -42,7 +42,6 @@ def v_sol(m, v, n):
         x[i] = v[i]
         for j in range(i + 1, n):
             x[i] -= m[i][j] * x[j]
-        # noinspection PyUnresolvedReferences
         x[i] = x[i] / m[i][i]
     return x
 
@@ -84,9 +83,9 @@ def erro_n(y, q, r, a, b, a_, b_):
             x.append(a + i * h)
 
         # Calcula o vetor solução real
-        v_sol = solve.v_sol(y, x, n)
-        print("Solução real")
-        print(np.matrix(v_sol))
+        v_sol = solve.v_sol(y, x)
+        # print("Solução real")
+        # print(np.matrix(v_sol))
 
         # Calcula o vetor solução pelo método de Gauss
         v_gauss = v_sol_mh(q, r, x, h, n, a_, b_)
