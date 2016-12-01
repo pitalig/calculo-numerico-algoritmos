@@ -21,13 +21,15 @@ def y_3(x):
             + 84 * math.pow(x, 2) * math.sin(math.pi * x))
 
 
+# Função q(x)
 def q(x):
-    return - (math.pow(math.pi, 2))  # Função q(x)
+    return (12 / math.pow(x, 2)
+            - (math.pow(math.pi, 2)))
 
 
-def r(x):  # Função r(x)
-    return (56 * math.pow(x, 2) * math.pi * math.cos(math.pi * x)
-            + 84 * math.pow(x, 2) * math.sin(math.pi * x))
+# Função r(x)
+def r(x):
+    return 56 * math.pow(x, 2) * math.pi * math.cos(math.pi * x)
 
 
 # Extremos
