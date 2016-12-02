@@ -4,6 +4,8 @@ import math
 import gauss
 import jacobi_numpy
 import solve
+import outros
+import construtor
 
 
 def y(x):  # Função y(x)
@@ -52,3 +54,5 @@ print('Solução Jacobi')
 print(v2)
 print('Solução real')
 print(solve.v_sol(y, x))
+print('Resíduo')
+print(outros.residuo(construtor.matriz(q, x, h, n), construtor.vetor(r, x, h, n, a_, b_), v2))

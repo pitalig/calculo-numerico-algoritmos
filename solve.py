@@ -7,3 +7,4 @@ def v_sol(y, x):
     for i in x:
         v.append(y(i))
     return v
+
