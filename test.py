@@ -1,11 +1,16 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
 import math
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+import construtor
 import gauss
 import jacobi_numpy
-import solve
+import minimos_quadrados
 import outros
-import construtor
+import solve
 
 
 def y(x):  # Função y(x)
@@ -56,3 +61,14 @@ print('Solução real')
 print(solve.v_sol(y, x))
 print('Resíduo')
 print(outros.residuo(construtor.matriz(q, x, h, n), construtor.vetor(r, x, h, n, a_, b_), v2))
+
+p = minimos_quadrados.polinomio_erro(y, q, r, a, b, a_, b_)
+print(p)
+x_plt = np.arange(0, 40, 0.1)
+y_plt = p(x_plt)
+plt.semilogy(x_plt, y_plt)
+plt.ylabel('Erro')
+plt.xlabel('n')
+plt.title('Erro')
+# plt.savefig("test.png")
+plt.show()

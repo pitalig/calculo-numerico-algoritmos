@@ -64,16 +64,12 @@ def v_sol_mh(q, r, x, h, n, a_, b_):
 # Entradas: y(x), q(x), r(x), extremo inicial (a), extremo final (b), y(a), y(b)
 # Retorno: vetor com o erro máximo para cada valor de n.
 def erro_n(y, q, r, a, b, a_, b_):
-    # Número de passos (inserido pelo usuário)
-    n = int(input("Insira o valor máximo de n: "))
-
     # Erro entre valores obtidos pelo método de Gauss e a solução conhecida
     e = []
     # Erro máximo da cada iteração
     e_max = []
 
-    for n in range(5, n + 1, 5):
-        # print("##### Para n = ", n, "#####")
+    for n in range(5, 41, 5):
         # Calcula o passo adequado ao intervalo
         h = (b - a) / n
 
@@ -102,12 +98,12 @@ def erro_n(y, q, r, a, b, a_, b_):
         # print(np.max(dif))
 
     print(e_max)
-    plt.semilogy(range(5, n + 1, 5), e_max, 'ko')
+    plt.semilogy(range(5, 41, 5), e_max, 'ko')
     plt.ylabel('Erro')
     plt.xlabel('n')
     plt.title('Erro')
     # plt.savefig("test.png")
-    plt.show()
+    # plt.show()
     return e_max
 
 # ----------------teste----------------
