@@ -4,6 +4,8 @@ import math
 import gauss
 import jacobi_numpy
 import solve
+import outros
+import construtor
 
 
 def y(x):  # Função y(x)
@@ -17,7 +19,7 @@ def y_2(x):
 
 def y_3(x):
     return (- math.pow(math.pi, 2) * 7 * math.pow(x, 4) * math.sin(math.pi * x)
-            + 56 * math.pow(x, 2) * math.pi * math.cos(math.pi * x)
+            + 56 * math.pow(x, 3) * math.pi * math.cos(math.pi * x)
             + 84 * math.pow(x, 2) * math.sin(math.pi * x))
 
 
@@ -29,7 +31,7 @@ def q(x):
 
 # Função r(x)
 def r(x):
-    return 56 * math.pow(x, 2) * math.pi * math.cos(math.pi * x)
+    return 56 * math.pow(x, 3) * math.pi * math.cos(math.pi * x)
 
 
 # Extremos
@@ -51,10 +53,12 @@ for i in range(1, n):
 
 v1 = gauss.v_sol_mh(q, r, x, h, n, a_, b_)
 
-v2 = jacobi_numpy.v_sol_mh(q, r, x, h, n, a_, b_, 100, 0.0001)
+v2 = jacobi_numpy.v_sol_mh(q, r, x, h, n, a_, b_, 1000000, 0.0001)
 print('Solução Gauss')
 print(v1)
 print('Solução Jacobi')
 print(v2)
 print('Solução real')
 print(solve.v_sol(y, x))
+print('Resíduo')
+print(outros.residuo(construtor.matriz(q, x, h, n), construtor.vetor(r, x, h, n, a_, b_), v2))
