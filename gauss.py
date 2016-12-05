@@ -107,7 +107,7 @@ def erro_n(y, q, r, a, b, a_, b_):
     plt.xlabel('n')
     plt.title('Erro')
     # plt.savefig("test.png")
-    plt.show()
+    # plt.show()
     return e_max
 
 # ----------------teste----------------

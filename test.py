@@ -6,6 +6,9 @@ import jacobi_numpy
 import solve
 import outros
 import construtor
+import minimos
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 def y(x):  # Função y(x)
@@ -56,3 +59,15 @@ print('Solução real')
 print(solve.v_sol(y, x))
 print('Resíduo')
 print(outros.residuo(construtor.matriz(q, x, h, n), construtor.vetor(r, x, h, n, a_, b_), v2))
+erro = gauss.erro_n(y, q, r, a, b, a_, b_)
+mmq = list(reversed(minimos.polin(list(range(5, 41, 5)), erro)))
+print(mmq)
+mmq = np.poly1d(mmq.copy())
+x_mmq = list(range(5, 40, 5))
+y_mmq = [mmq(xi) for xi in x_mmq]
+plt.semilogy(x_mmq, y_mmq)
+plt.ylabel('Erro')
+plt.xlabel('n')
+plt.title('Erro')
+plt.show()
+
