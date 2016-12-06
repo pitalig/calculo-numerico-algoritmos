@@ -1,27 +1,26 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
-import math
+import construtor
 import gauss
 import jacobi_numpy
-import solve
 import outros
-import construtor
+import solve
 
 
 def y(x):  # Função y(x)
-    return math.pow(x, 4)
+    return x ** 4
 
 
 def y_2(x):
-    return 4 * math.pow(x, 3)
+    return 4 * x ** 3
 
 
 def y_3(x):
-    return 12 * math.pow(x, 2)
+    return 12 * x ** 2
 
 
 def q(x):
-    return 12 / math.pow(x, 2)  # Função q(x)
+    return 12 / x ** 2  # Função q(x)
 
 
 def r(x):

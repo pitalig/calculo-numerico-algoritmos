@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
 # Método da falsa posição
-import math
 import numpy as np
 
 
@@ -28,12 +27,12 @@ def falsaposicao(f, m1, m2, tol):
 # ----------------teste----------------
 if __name__ == "__main__":
     def f(x):
-        return 3 * math.pow(x, 3) - 2 * math.pow(x, 2) + 3 * x - 2
+        return 3 * x ** 3 - 2 * x ** 2 + 3 * x - 2
 
 
     print('teste1')
 
-    tol = math.pow(10, -6)
+    tol = 10 ** (-6)
     m1 = 0.6
     m2 = 1
 
@@ -43,7 +42,7 @@ if __name__ == "__main__":
 
     print('teste2')
 
-    tol = math.pow(10, -6)
+    tol = 10 ** (-6)
     m1 = -7
     m2 = 5
 
@@ -53,7 +52,7 @@ if __name__ == "__main__":
 
     print('teste3')
 
-    tol = math.pow(10, -6)
+    tol = 10 ** (-6)
     m1 = 0
     m2 = 2
 

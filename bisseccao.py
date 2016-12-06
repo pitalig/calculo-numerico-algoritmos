@@ -2,6 +2,7 @@
 # encoding: utf-8
 # Método da bissecção ou dicotomia
 import math
+
 import numpy as np
 
 
@@ -31,9 +32,10 @@ if __name__ == "__main__":
     print("teste1")
 
     def f(x):
-        return 3 * math.pow(x, 3) - 2 * math.pow(x, 2) + 3 * x - 2
+        return 3 * x ** 3 - 2 * x ** 2 + 3 * x - 2
 
-    tol = math.pow(10, -2)
+
+    tol = 10 ** (-2)
 
     m1 = -1
     m2 = 1
@@ -47,7 +49,8 @@ if __name__ == "__main__":
     def f(x):
         return math.sin(x) - math.cos(x)
 
-    tol = math.pow(10, -10)
+
+    tol = 10 ** (-10)
 
     m1 = 0
     m2 = math.pi / 2  # a raíz da equação no intervalo desejado é pi/4

@@ -1,7 +1,6 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
 import gauss
-import numpy as np
 
 
 def polin(x, y):

@@ -1,14 +1,14 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
-import math
-import gauss
-import jacobi_numpy
-import solve
-import outros
-import construtor
-import minimos
 import matplotlib.pyplot as plt
 import numpy as np
+
+import construtor
+import gauss
+import jacobi_numpy
+import minimos
+import outros
+import solve
 
 
 def y(x):  # Função y(x)
@@ -16,19 +16,19 @@ def y(x):  # Função y(x)
 
 
 def y_2(x):
-    return -1/math.pow(x, 2)
+    return -1 / (x ** 2)
 
 
 def y_3(x):
-    return 2/math.pow(x, 3)
+    return 2 / (x ** 3)
 
 
 def q(x):
-    return 1/math.pow(x, 2)  # Função q(x)
+    return 1 / (x ** 2)  # Função q(x)
 
 
 def r(x):
-    return 1/math.pow(x, 3)  # Função q(x)
+    return 1 / (x ** 3)  # Função q(x)
 
 
 # Extremos
