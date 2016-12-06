@@ -4,6 +4,9 @@
 import numpy as np
 
 
+# Resolve equação pelo método da falsa posição.
+# Entradas: função, extremos do chute inicial, tolerancia
+# Retorno: solução
 def falsaposicao(f, m1, m2, tol):
     tab = [['i', 'm1', 'm2', 'alpha', 'f(alpha)']]
     alpha = 0.5 * (m1 + m2)

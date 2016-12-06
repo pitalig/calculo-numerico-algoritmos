@@ -6,6 +6,9 @@ import math
 import numpy as np
 
 
+# Resolve equação pelo método da bissecção.
+# Entradas: função, extremos do chute inicial, tolerancia e criticidade de parada
+# Retorno: solução
 def bissec(f, m1, m2, tol, crit_parada):
     tab = [["iter", "m1", "m2", "alpha", "f(alpha)"]]
     itera = 0

@@ -3,6 +3,10 @@
 import math
 
 
+# MÉTODO APRESENTA FUNCIONAMENTO INCORRETO
+# Calcula o vetor solução pelo método de Jacobi.
+# Entradas: função q(x), malha de pontos, constante h, função y(x), tolerância, número máximo de iterações, n
+# Retorno: vetor solução
 def v_sol(q, x, h, y, tol, n_max, n):
     w_0 = [0] * (n - 1)
     w_new = w_0.copy()

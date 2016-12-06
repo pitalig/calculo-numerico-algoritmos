@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 
+# Constroi a matriz do sistema
+# Entradas: função q(x), malha de pontos, contante h, número de pontos
+# Retorno: matriz do sistema
 def matriz(q, x, h, n):
     b = []
     for i in range(n-1):
@@ -14,6 +17,9 @@ def matriz(q, x, h, n):
     return b
 
 
+# Constroi o vetor de termos independentes
+# Entradas: função r(x), malha de pontos, contante h, número de pontos, soluções nos extremos da malha
+# Retorno: vetor de termos independentes
 def vetor(r, x, h, n, a_, b_):
     z = []
     for i in range(n-1):

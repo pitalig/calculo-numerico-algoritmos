@@ -3,6 +3,10 @@
 import gauss
 
 
+# MÉTODO APRESENTA FUNCIONAMENTO INCORRETO
+# Cria o polinômio interpolador de terceiro grau pelo método de mínimos quadrados.
+# Entradas: vetor de pontos x e vetor de soluções nos respectivos pontos
+# Retorno: polinômio interpolador
 def polin(x, y):
     xk1 = x
     xk2 = [xi**2 for xi in x]
@@ -22,6 +26,9 @@ def polin(x, y):
     return gauss.v_sol(m, v, 4)
 
 
+# Cria o polinômio interpolador de grau g pelo método de mínimos quadrados, utilizando biblioteca numpy.
+# Entradas: vetor de pontos, vetor de soluções nos respectivos pontos, grau desejado.
+# Retorno: vetor de coeficientes do polinômio interpolador
 def polin_numpy(x, y, g):
     from numpy import polyfit, array
     return polyfit(array(x), array(y), g)
@@ -50,6 +57,16 @@ if __name__ == "__main__":
     x = [1, 2, 4, 5, 7, 8, 10]
     y = [1, 1, 4, 4, 6, 6, 7]
     p = np.poly1d(polin_numpy(x, y, 5))
+    plt.plot(x, y, "ko")
+    x = np.arange(1, 10, 0.01)
+    y = p(x)
+    plt.plot(x, y)
+    plt.show()
+
+    # TESTE 4
+    x = [1, 2, 3, 4, 5]
+    y = [1, 4, 9, 12, 25]
+    p = np.poly1d(polin_numpy(x, y, 4))
     plt.plot(x, y, "ko")
     x = np.arange(1, 10, 0.01)
     y = p(x)

@@ -1,6 +1,5 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
-import matplotlib.pyplot as plt
 import numpy as np
 
 import construtor
@@ -63,10 +62,7 @@ def v_sol_mh(q, r, x, h, n, a_, b_):
 # Plota o gráfico do erro máximo para cada valor de n.
 # Entradas: y(x), q(x), r(x), extremo inicial (a), extremo final (b), y(a), y(b)
 # Retorno: vetor com o erro máximo para cada valor de n.
-def erro_n(y, q, r, a, b, a_, b_):
-    # Número de passos (inserido pelo usuário)
-    n = int(input("Insira o valor máximo de n: "))
-
+def erro_n(y, q, r, a, b, a_, b_, n):
     # Erro entre valores obtidos pelo método de Gauss e a solução conhecida
     e = []
     # Erro máximo da cada iteração
@@ -84,30 +80,14 @@ def erro_n(y, q, r, a, b, a_, b_):
 
         # Calcula o vetor solução real
         v_sol = solve.v_sol(y, x)
-        # print("Solução real")
-        # print(np.matrix(v_sol))
 
         # Calcula o vetor solução pelo método de Gauss
         v_gauss = v_sol_mh(q, r, x, h, n, a_, b_)
-        # print("Solução Gauss")
-        # print(np.matrix(v_sol_mh))
 
         # Compara as soluções
-        dif = abs(np.matrix(v_sol) - np.matrix(v_gauss))
+        dif = [abs(i) for i in (np.array(v_sol) - np.array(v_gauss)).tolist()]
         e.append(dif)
         e_max.append(np.max(dif))
-        # print("Diferença entre real e v_sol (Erro)")
-        # print(dif)
-        # print("Erro máximo")
-        # print(np.max(dif))
-
-    print(e_max)
-    plt.semilogy(range(5, n + 1, 5), e_max, 'ko')
-    plt.ylabel('Erro')
-    plt.xlabel('n')
-    plt.title('Erro')
-    # plt.savefig("test.png")
-    # plt.show()
     return e_max
 
 # ----------------teste----------------
