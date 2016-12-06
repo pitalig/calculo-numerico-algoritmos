@@ -23,7 +23,20 @@ def polin(x, y):
 
 
 if __name__ == "__main__":
+    # TESTE 1
     x = [1, 2, 3]
     y = [10, 11, 12]
-
     print(polin(x, y))
+
+    # TESTE 2
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    x = [1, 2, 4, 5, 7, 8, 10]
+    y = [1, 1, 4, 4, 6, 6, 7]
+    p = np.poly1d(polin(x, y))
+    plt.plot(x, y, "ko")
+    x = np.arange(1, 10, 0.01)
+    y = p(x)
+    plt.plot(x, y)
+    plt.show()
