@@ -20,13 +20,16 @@ def v_sol(m, v, n_max, tol):
     r = m - np.diagflat(d)
 
     # Executa a iteração
-    for i in range(n_max):
+    i = 0
+    while i < n_max:
+        i += 1
         x_old = x.copy()
         x = (v - np.dot(r, x)) / d
         # Verifica a tolerância
-        if np.allclose(x, x_old, tol):
+        if np.allclose(x, x_old, atol=tol, rtol=tol):
             break
     # Retorna o vetor solução
+    print('Foram feitas ', i, ' iterações.')
     return x.tolist()
 
 
@@ -40,6 +43,41 @@ def v_sol_mh(q, r, x, h, n, a_, b_, n_max, tol):
 
     # Calcula e retorna o vetor solução
     return v_sol(m_h, v_h, n_max, tol)
+
+
+# Calcula o vetor solução, para a matriz de uma equação e diversos valores de n, pelo método de Jacobi.
+# Compara os valores solução do método de Gauss com a solução real.
+# Plota o gráfico do erro_gauss máximo para cada valor de n.
+# Entradas: y(x), q(x), r(x), extremo inicial (a), extremo final (b), y(a), y(b)
+# Retorno: vetor com o erro_gauss máximo para cada valor de n.
+def erro_n(y, q, r, a, b, a_, b_, n, n_max, tol):
+    import solve
+    # Erro entre valores obtidos pelo método de Gauss e a solução conhecida
+    e = []
+    # Erro máximo da cada iteração
+    e_max = []
+
+    for n in range(5, n + 1, 5):
+        # print("##### Para n = ", n, "#####")
+        # Calcula o passo adequado ao intervalo
+        h = (b - a) / n
+
+        # Cria a malha de pontos
+        x = []
+        for i in range(1, n):
+            x.append(a + i * h)
+
+        # Calcula o vetor solução real
+        v_sol = solve.v_sol(y, x)
+
+        # Calcula o vetor solução pelo método de Gauss
+        v_gauss = v_sol_mh(q, r, x, h, n, a_, b_, n_max, tol)
+
+        # Compara as soluções
+        dif = [abs(i) for i in (np.array(v_sol) - np.array(v_gauss)).tolist()]
+        e.append(dif)
+        e_max.append(np.max(dif))
+    return e_max
 
 
 if __name__ == "__main__":
