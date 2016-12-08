@@ -34,41 +34,67 @@ def polin_numpy(x, y, g):
     return polyfit(array(x), array(y), g)
 
 
+# Cria o polinômio interpolador de grau g pelo método de mínimos quadrados, utilizando biblioteca numpy.
+# Elimina o termo constante do polinômio.
+# Entradas: vetor de pontos, vetor de soluções nos respectivos pontos, grau desejado.
+# Retorno: vetor de coeficientes do polinômio interpolador
+def polin_numpy_no_constant(x, y, g):
+    from numpy import polyfit, array
+    p = polyfit(array(x), array(y), g)
+    p[len(p) - 1] = 0
+    return p
+
+
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
     import numpy as np
 
     # TESTE 1
-    x = [1, 2, 3]
-    y = [10, 11, 12]
-    print(polin(x, y))
+    x = [1, 2, 3, 4, 5, 6]
+    y = [1, 4, 9, 12, 25, 36]
+    p = np.poly1d(polin(x, y))
+    # plt.plot(x, y, "ko")
+    x = np.arange(1, 10, 0.01)
+    y = p(x)
+    # plt.plot(x, y)
+    # plt.show()
 
     # TESTE 2
     x = [1, 2, 4, 5, 7, 8, 10]
     y = [1, 1, 4, 4, 6, 6, 7]
     p = np.poly1d(polin(x, y))
-    plt.plot(x, y, "ko")
+    # plt.plot(x, y, "ko")
     x = np.arange(1, 10, 0.01)
     y = p(x)
-    plt.plot(x, y)
-    plt.show()
+    # plt.plot(x, y)
+    # plt.show()
 
     # TESTE 3
     x = [1, 2, 4, 5, 7, 8, 10]
     y = [1, 1, 4, 4, 6, 6, 7]
     p = np.poly1d(polin_numpy(x, y, 5))
-    plt.plot(x, y, "ko")
+    # plt.plot(x, y, "ko")
     x = np.arange(1, 10, 0.01)
     y = p(x)
-    plt.plot(x, y)
-    plt.show()
+    # plt.plot(x, y)
+    # plt.show()
 
     # TESTE 4
     x = [1, 2, 3, 4, 5]
     y = [1, 4, 9, 12, 25]
     p = np.poly1d(polin_numpy(x, y, 4))
-    plt.plot(x, y, "ko")
+    # plt.plot(x, y, "ko")
     x = np.arange(1, 10, 0.01)
+    y = p(x)
+    # plt.plot(x, y)
+    # plt.show()
+
+    # TESTE 5
+    x = [1 / 1, 1 / 2, 1 / 3, 1 / 4, 1 / 5]
+    y = [i ** 2 for i in x]
+    plt.plot(x, y, "ko")
+    p = np.poly1d(polin_numpy_no_constant(x, y, 4))
+    x = np.arange(0, 5, 0.01)
     y = p(x)
     plt.plot(x, y)
     plt.show()
