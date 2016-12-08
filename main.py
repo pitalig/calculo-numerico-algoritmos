@@ -22,26 +22,30 @@ print(solve.v_sol(y, x))
 # Soluciona a matriz pelo método de Gauss
 print('\n\n---------- GAUSS ----------')
 v1 = gauss.v_sol_mh(q, r, x, h, n, a_, b_)
-print(v1)
+# print(v1)
 # Calcula o resíduo para solução de Gauss
-print('RESÍDUO')
+# print('RESÍDUO')
 res_gauss = outros.residuo(construtor.matriz(q, x, h, n), construtor.vetor(r, x, h, n, a_, b_), v1)
-print(res_gauss)
+# print(res_gauss)
+print('RESÍDUO MAX')
+print(max(res_gauss))
 
 # Soluciona a matriz pelo método de Jacobi
 print('\n\n---------- JACOBI ----------')
-v2 = jacobi_numpy.v_sol_mh(q, r, x, h, n, a_, b_, 10000, 0)
-print(v2)
+v2 = jacobi_numpy.v_sol_mh(q, r, x, h, n, a_, b_, 100000, 0)
+# print(v2)
 # Calcula o resíduo para solução de Jacobi
-print('RESÍDUO')
+# print('RESÍDUO')
 res_jacobi = outros.residuo(construtor.matriz(q, x, h, n), construtor.vetor(r, x, h, n, a_, b_), v2)
-print(res_jacobi)
+# print(res_jacobi)
+print('RESÍDUO MAX')
 print(max(res_jacobi))
 
 # Compara os resíduos de Gauss e Jacobi
 print('\n\n---------- COMPARAÇÃO RESÍDUOS ----------')
 dif_res = abs(np.array(res_jacobi) - np.array(res_gauss)).tolist()
-print(dif_res)
+# print(dif_res)
+print('DIFERENÇA MAX')
 print(max(dif_res))
 
 # Calcula o erro_gauss do método de Gauss e plota o gráfico
