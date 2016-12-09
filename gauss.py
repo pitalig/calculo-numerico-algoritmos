@@ -21,9 +21,9 @@ def v_sol(m, v, n):
                         print("Matriz inválida")
                         break
                 else:
-                    temp = m[k]
-                    m[k] = m[j]
-                    m[j] = temp
+                    temp = m[k].copy()
+                    m[k] = m[j].copy()
+                    m[j] = temp.copy()
                     break
         for i in range(j + 1, n):
             mult = - m[i][j] / m[j][j]

@@ -32,7 +32,7 @@ print(max(res_gauss))
 
 # Soluciona a matriz pelo método de Jacobi
 print('\n\n---------- JACOBI ----------')
-v2 = jacobi_numpy.v_sol_mh(q, r, x, h, n, a_, b_, 100000, 0)
+v2 = jacobi_numpy.v_sol_mh(q, r, x, h, n, a_, b_, 10, 0)
 # print(v2)
 # Calcula o resíduo para solução de Jacobi
 # print('RESÍDUO')
@@ -54,13 +54,13 @@ erro_gauss = gauss.erro_n(y, q, r, a, b, a_, b_, 40)
 plt.semilogy(range(5, 41, 5), erro_gauss, 'ko')
 
 # Calcula e imprime o polinomio interpolador pelo método de mínimos quadrados
-mmq = np.poly1d(minimos.polin_numpy(list(range(5, 41, 5)), erro_gauss, 7))
+mmq = minimos.polin([5, 10, 15], (erro_gauss[0], erro_gauss[1], erro_gauss[2]))
 # print(mmq)
 
 # Plota o gráfico do polinomio interpolador
 x_mmq = list(np.arange(5, 40, 0.1))
-y_mmq = [abs(mmq(xi)) for xi in x_mmq]
+y_mmq = [mmq(xi) for xi in x_mmq]
 plt.semilogy(x_mmq, y_mmq)
-# plt.show()
+plt.show()
 
 print("\n\n---------- %s SEGUNDOS ----------" % (time.time() - start_time))
