@@ -48,18 +48,19 @@ dif_res = abs(np.array(res_jacobi) - np.array(res_gauss)).tolist()
 print('DIFERENÇA MAX')
 print(max(dif_res))
 
+print('\n\n---------- COMPARAÇÃO RESÍDUOS ----------')
 # Calcula o erro_gauss do método de Gauss e plota o gráfico
 erro_gauss = gauss.erro_n(y, q, r, a, b, a_, b_, 40)
 # print(erro_gauss)
 plt.semilogy(range(5, 41, 5), erro_gauss, 'ko')
 
 # Calcula e imprime o polinomio interpolador pelo método de mínimos quadrados
-mmq = minimos.polin([5, 10, 15], (erro_gauss[0], erro_gauss[1], erro_gauss[2]))
-# print(mmq)
+mmq = minimos.polin(range(5, 41, 5), erro_gauss)
+print(mmq[1])
 
 # Plota o gráfico do polinomio interpolador
 x_mmq = list(np.arange(5, 40, 0.1))
-y_mmq = [mmq(xi) for xi in x_mmq]
+y_mmq = [mmq[0](xi) for xi in x_mmq]
 plt.semilogy(x_mmq, y_mmq)
 plt.show()
 

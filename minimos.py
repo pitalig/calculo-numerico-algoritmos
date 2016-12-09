@@ -33,16 +33,15 @@ def polin(x, y):
         for j in range(3):
             for k in range(m):
                 matriz[i][j] += aux[k][i] * aux[k][j]
-        for k in range(3):
+        for k in range(m):
             vetor[i] += aux[k][i] * y[k]
 
     p = gauss.v_sol(matriz, vetor, 3)
-    print(p)
 
     def sol(x):
         return (p[0] / x) + (p[1] / x ** 2) + (p[2] / x ** 3)
 
-    return sol
+    return sol, p
 
 
 # Cria o polinômio interpolador de grau g pelo método de mínimos quadrados, utilizando biblioteca numpy.
