@@ -56,6 +56,7 @@ plt.semilogy(range(5, 41, 5), erro_gauss, 'ko')
 
 # Calcula e imprime o polinomio interpolador pelo método de mínimos quadrados
 mmq = minimos.polin(range(5, 41, 5), erro_gauss)
+print('CONSTANTES MÍNIMOS QUADRADOS')
 print(mmq[1])
 
 # Plota o gráfico do polinomio interpolador

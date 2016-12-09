@@ -7,7 +7,7 @@ import numpy as np
 # MÉTODO APRESENTA FUNCIONAMENTO INCORRETO
 # Cria o polinômio interpolador de terceiro grau pelo método de mínimos quadrados.
 # Entradas: vetor de pontos x e vetor de soluções nos respectivos pontos
-# Retorno: polinômio interpolador
+# Retorno: polinômio interpolador e um vetor com os coeficientes do polinômio
 def polin(x, y):
     m = len(x)
 
