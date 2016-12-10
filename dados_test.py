@@ -28,13 +28,3 @@ b = 2
 # Solução da equação nos extremos - alfa e beta
 a_ = y(a)
 b_ = y(b)
-
-n = 10
-
-# Calcula o passo adequado ao intervalo
-h = (b - a) / n
-
-# Cria a malha de pontos
-x = []
-for i in range(1, n):
-    x.append(a + i * h)

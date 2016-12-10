@@ -69,7 +69,6 @@ def erro_n(y, q, r, a, b, a_, b_, n, n_step):
     e_max = []
 
     for ni in range(5, n, n_step):
-        # print("##### Para ni = ", ni, "#####")
         # Calcula o passo adequado ao intervalo
         h = (b - a) / ni
 
