@@ -62,27 +62,27 @@ def v_sol_mh(q, r, x, h, n, a_, b_):
 # Plota o gráfico do erro máximo para cada valor de n.
 # Entradas: y(x), q(x), r(x), extremo inicial (a), extremo final (b), y(a), y(b)
 # Retorno: vetor com o erro máximo para cada valor de n.
-def erro_n(y, q, r, a, b, a_, b_, n):
+def erro_n(y, q, r, a, b, a_, b_, n, n_step):
     # Erro entre valores obtidos pelo método de Gauss e a solução conhecida
     e = []
     # Erro máximo da cada iteração
     e_max = []
 
-    for n in range(5, n + 1, 5):
-        # print("##### Para n = ", n, "#####")
+    for ni in range(5, n, n_step):
+        # print("##### Para ni = ", ni, "#####")
         # Calcula o passo adequado ao intervalo
-        h = (b - a) / n
+        h = (b - a) / ni
 
         # Cria a malha de pontos
         x = []
-        for i in range(1, n):
+        for i in range(1, ni):
             x.append(a + i * h)
 
         # Calcula o vetor solução real
         v_sol = solve.v_sol(y, x)
 
         # Calcula o vetor solução pelo método de Gauss
-        v_gauss = v_sol_mh(q, r, x, h, n, a_, b_)
+        v_gauss = v_sol_mh(q, r, x, h, ni, a_, b_)
 
         # Compara as soluções
         dif = [abs(i) for i in (np.array(v_sol) - np.array(v_gauss)).tolist()]
