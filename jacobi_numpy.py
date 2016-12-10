@@ -20,13 +20,16 @@ def v_sol(m, v, n_max, tol):
     r = m - np.diagflat(d)
 
     # Executa a iteração
-    for i in range(n_max):
+    i = 0
+    while i < n_max:
+        i += 1
         x_old = x.copy()
         x = (v - np.dot(r, x)) / d
         # Verifica a tolerância
-        if np.allclose(x, x_old, tol):
+        if np.allclose(x, x_old, atol=tol, rtol=tol):
             break
     # Retorna o vetor solução
+    print('Foram feitas ', i, ' iterações.')
     return x.tolist()
 
 

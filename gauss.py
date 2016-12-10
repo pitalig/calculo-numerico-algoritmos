@@ -1,6 +1,5 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
-import matplotlib.pyplot as plt
 import numpy as np
 
 import construtor
@@ -22,9 +21,9 @@ def v_sol(m, v, n):
                         print("Matriz inválida")
                         break
                 else:
-                    temp = m[k]
-                    m[k] = m[j]
-                    m[j] = temp
+                    temp = m[k].copy()
+                    m[k] = m[j].copy()
+                    m[j] = temp.copy()
                     break
         for i in range(j + 1, n):
             mult = - m[i][j] / m[j][j]
@@ -63,47 +62,32 @@ def v_sol_mh(q, r, x, h, n, a_, b_):
 # Plota o gráfico do erro máximo para cada valor de n.
 # Entradas: y(x), q(x), r(x), extremo inicial (a), extremo final (b), y(a), y(b)
 # Retorno: vetor com o erro máximo para cada valor de n.
-def erro_n(y, q, r, a, b, a_, b_):
+def erro_n(y, q, r, a, b, a_, b_, n, n_step):
     # Erro entre valores obtidos pelo método de Gauss e a solução conhecida
     e = []
     # Erro máximo da cada iteração
     e_max = []
 
-    for n in range(5, 41, 5):
+    for ni in range(5, n, n_step):
+        # print("##### Para ni = ", ni, "#####")
         # Calcula o passo adequado ao intervalo
-        h = (b - a) / n
+        h = (b - a) / ni
 
         # Cria a malha de pontos
         x = []
-        for i in range(1, n):
+        for i in range(1, ni):
             x.append(a + i * h)
 
         # Calcula o vetor solução real
         v_sol = solve.v_sol(y, x)
-        # print("Solução real")
-        # print(np.matrix(v_sol))
 
         # Calcula o vetor solução pelo método de Gauss
-        v_gauss = v_sol_mh(q, r, x, h, n, a_, b_)
-        # print("Solução Gauss")
-        # print(np.matrix(v_sol_mh))
+        v_gauss = v_sol_mh(q, r, x, h, ni, a_, b_)
 
         # Compara as soluções
-        dif = abs(np.matrix(v_sol) - np.matrix(v_gauss))
+        dif = [abs(i) for i in (np.array(v_sol) - np.array(v_gauss)).tolist()]
         e.append(dif)
         e_max.append(np.max(dif))
-        # print("Diferença entre real e v_sol (Erro)")
-        # print(dif)
-        # print("Erro máximo")
-        # print(np.max(dif))
-
-    print(e_max)
-    plt.semilogy(range(5, 41, 5), e_max, 'ko')
-    plt.ylabel('Erro')
-    plt.xlabel('n')
-    plt.title('Erro')
-    # plt.savefig("test.png")
-    # plt.show()
     return e_max
 
 # ----------------teste----------------

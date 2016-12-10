@@ -1,13 +1,15 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
-import math
 
 
+# Constroi a matriz do sistema
+# Entradas: função q(x), malha de pontos, contante h, número de pontos
+# Retorno: matriz do sistema
 def matriz(q, x, h, n):
     b = []
     for i in range(n-1):
         l = [0] * (n-1)
-        l[i] = 2 + math.pow(h, 2) * q(x[i])
+        l[i] = 2 + h ** 2 * q(x[i])
         b.append(l)
     for i in range(n-2):
         b[i + 1][i] = -1
@@ -15,10 +17,13 @@ def matriz(q, x, h, n):
     return b
 
 
+# Constroi o vetor de termos independentes
+# Entradas: função r(x), malha de pontos, contante h, número de pontos, soluções nos extremos da malha
+# Retorno: vetor de termos independentes
 def vetor(r, x, h, n, a_, b_):
     z = []
     for i in range(n-1):
-        z.append(- math.pow(h, 2) * r(x[i]))
+        z.append(- h ** 2 * r(x[i]))
     z[0] += a_
     z[n-2] += b_
     return z
@@ -38,7 +43,7 @@ if __name__ == "__main__":
 
 
     def r(x):
-        return math.pow(x, 2)
+        return x ** 2
 
 
     print(vetor(r, x, h, n, 0, 0))

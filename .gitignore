@@ -133,3 +133,6 @@ fabric.properties
 
 # Others:
 .idea/inspectionProfiles
+.idea/calculo-numerico-algoritmos.iml
+.idea/vcs.xml
+*.xml

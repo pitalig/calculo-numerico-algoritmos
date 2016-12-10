@@ -1,64 +1,93 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
-import math
+import time
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pprint
+
+import construtor
 import gauss
 import jacobi_numpy
-import solve
+import minimos
 import outros
-import construtor
+import solve
+import math
+from dados_test import *
 
+start_time = time.time()
 
-def y(x):  # Função y(x)
-    return 7 * math.pow(x, 4) * math.sin(math.pi * x)
+print('\n\n---------- MATRIZ ----------')
+pprint.pprint(construtor.matriz(q, x, h, n))
 
+print('\n\n---------- VETOR DE TERMOS INDEPENDENTES ----------')
+pprint.pprint(construtor.vetor(r, x, h, n, a_, b_))
 
-def y_2(x):
-    return (7 * math.pow(x, 3) * (4 * math.sin(math.pi * x)
-                                  + math.pi * x * math.cos(math.pi * x)))
-
-
-def y_3(x):
-    return (- math.pow(math.pi, 2) * 7 * math.pow(x, 4) * math.sin(math.pi * x)
-            + 56 * math.pow(x, 3) * math.pi * math.cos(math.pi * x)
-            + 84 * math.pow(x, 2) * math.sin(math.pi * x))
-
-
-# Função q(x)
-def q(x):
-    return (12 / math.pow(x, 2)
-            - (math.pow(math.pi, 2)))
-
-
-# Função r(x)
-def r(x):
-    return 56 * math.pow(x, 3) * math.pi * math.cos(math.pi * x)
-
-
-# Extremos
-a = 0
-b = 1
-# Solução da equação nos extremos - alfa e beta
-a_ = y(a)
-b_ = y(b)
-
-n = 10
-
-# Calcula o passo adequado ao intervalo
-h = (b - a) / n
-
-# Cria a malha de pontos
-x = []
-for i in range(1, n):
-    x.append(a + i * h)
-
-v1 = gauss.v_sol_mh(q, r, x, h, n, a_, b_)
-
-v2 = jacobi_numpy.v_sol_mh(q, r, x, h, n, a_, b_, 1000000, 0.0001)
-print('Solução Gauss')
-print(v1)
-print('Solução Jacobi')
-print(v2)
-print('Solução real')
+print('\n\n---------- SOLUÇÕES ----------')
+# Soluciona a matriz utilizando a solução real conhecida
+print('\n\n---------- REAL ----------')
 print(solve.v_sol(y, x))
-print('Resíduo')
-print(outros.residuo(construtor.matriz(q, x, h, n), construtor.vetor(r, x, h, n, a_, b_), v2))
+
+# Soluciona a matriz pelo método de Gauss
+print('\n\n---------- GAUSS ----------')
+v1 = gauss.v_sol_mh(q, r, x, h, n, a_, b_)
+print(v1)
+# Calcula o resíduo para solução de Gauss
+print('RESÍDUO')
+res_gauss = outros.residuo(construtor.matriz(q, x, h, n), construtor.vetor(r, x, h, n, a_, b_), v1)
+print(res_gauss)
+print('RESÍDUO MAX')
+print(max(res_gauss))
+
+# Soluciona a matriz pelo método de Jacobi
+print('\n\n---------- JACOBI ----------')
+v2 = jacobi_numpy.v_sol_mh(q, r, x, h, n, a_, b_, 10, 0)
+print(v2)
+# Calcula o resíduo para solução de Jacobi
+print('RESÍDUO')
+res_jacobi = outros.residuo(construtor.matriz(q, x, h, n), construtor.vetor(r, x, h, n, a_, b_), v2)
+print(res_jacobi)
+print('RESÍDUO MAX')
+print(max(res_jacobi))
+
+# Compara os resíduos de Gauss e Jacobi
+print('\n\n---------- COMPARAÇÃO RESÍDUOS ----------')
+dif_res = abs(np.array(res_jacobi) - np.array(res_gauss)).tolist()
+print(dif_res)
+print('DIFERENÇA MAX')
+print(max(dif_res))
+
+print('\n\n---------- COMPARAÇÃO RESÍDUOS ----------')
+# Calcula o erro_gauss do método de Gauss e plota o gráfico
+erro_gauss = gauss.erro_n(y, q, r, a, b, a_, b_, 41, 5)
+n_erro_gauss = range(5, 41, 5)
+plt.semilogy(n_erro_gauss, erro_gauss, 'ko')
+
+print("\n\n---------- %s SEGUNDOS ----------" % (time.time() - start_time))
+
+# Calcula e imprime o polinomio interpolador pelo método de mínimos quadrados
+mmq = minimos.polin(n_erro_gauss, erro_gauss)
+print('CONSTANTES MÍNIMOS QUADRADOS')
+print(mmq[1])
+
+# Plota o gráfico do polinomio interpolador
+x_mmq = list(np.arange(n_erro_gauss[0], n_erro_gauss[-1], 0.1))
+y_mmq = [mmq[0](xi) for xi in x_mmq]
+plt.semilogy(x_mmq, y_mmq)
+plt.show()
+
+# Calcula o logaritmo do erro e de n e plota o gráfico
+erro_log = [math.log10(xi) for xi in erro_gauss]
+n_log = [math.log10(xi) for xi in n_erro_gauss]
+plt.plot(n_log, erro_log, 'ko')
+
+# Calcula e imprime o polinomio interpolador pelo método de mínimos quadrados para o log
+mmq_log = minimos.polin_numpy(n_log, erro_log, 1)
+print('CONSTANTES MÍNIMOS QUADRADOS')
+print(mmq_log[1])
+
+# Plota o gráfico do polinomio interpolador
+x_mmq_log = list(np.arange(n_log[0], n_log[-1], 0.1))
+y_mmq_log = [mmq_log[0](xi) for xi in x_mmq_log]
+plt.plot(x_mmq_log, y_mmq_log)
+plt.show()
