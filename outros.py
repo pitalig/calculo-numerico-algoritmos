@@ -11,6 +11,9 @@ def residuo(m, v, v_sol):
     return res[0]
 
 
+# Recebe o valor de n inserido pelo usuário.
+# Entradas: extremos a e b
+# Retorno: dicionário contendo n, h e a malha de pontos x
 def set_n(a, b):
     n = int(input('Insira o valor de N desejado '))
 

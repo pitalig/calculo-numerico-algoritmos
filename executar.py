@@ -8,13 +8,14 @@ import numpy as np
 
 import construtor
 import gauss
-import jacobi_numpy
+import jacobi
 import minimos
 import outros
 import solve
 from dados import *
 
 
+# Imprime a matriz e o vetor de termos independentes
 def imprime_matriz_vetor():
     n = outros.set_n(a, b)
     print('\n\n---------- MATRIZ ----------')
@@ -24,6 +25,10 @@ def imprime_matriz_vetor():
     pprint.pprint(construtor.vetor(r, n['x'], n['h'], n['n'], a_, b_))
 
 
+# Imprime as soluções reais, de Gauss e de Jacobi.
+# Imprime o resíduo* das soluções de Gauss e de Jacobi
+# Imprime a diferença entre os resíduos calculados
+# *Resíduo: para A*x = v -> resíduo = |(A * vetor_solução) - v|
 def solucoes_residuo():
     n = outros.set_n(a, b)
 
@@ -52,7 +57,7 @@ def solucoes_residuo():
     print('\n\n---------- JACOBI ----------')
     n_max = int(input('\nInsira o número máximo de iterações desejado '))
     tol = float(input('\nInsira a tolerância desejada '))
-    v2 = jacobi_numpy.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_, n_max, tol)
+    v2 = jacobi.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_, n_max, tol)
     print(v2)
     # Calcula o resíduo para solução de Jacobi
     print('\nRESÍDUO')
@@ -74,6 +79,7 @@ def solucoes_residuo():
     print("\n\n---------- %s SEGUNDOS ----------" % (time.time() - start_time))
 
 
+# Calcula a solução de Gauss e plota um gráfico do erro
 def gauss_plot_erro():
     n_max = 1 + int(input('\nInsira o número máximo de N desejado '))
     passo = int(input('\nInsira o passo desejado '))
@@ -100,6 +106,7 @@ def gauss_plot_erro():
     plt.show()
 
 
+# Calcula a solução de Gauss e plota um gráfico do logarítmo erro
 def gauss_plot_erro_log():
     n_max = 1 + int(input('\nInsira o número máximo de N desejado '))
     passo = int(input('\nInsira o passo desejado '))
@@ -130,5 +137,25 @@ def gauss_plot_erro_log():
     plt.show()
 
 
+# Imprime a taxa de redução do erro entre a solução de Jacobi e Gauss para cada iteração.
+def reducao_erro():
+    n = outros.set_n(a, b)
+    v_gauss = np.array(gauss.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_))
+    erro = []
+    taxa = []
+    v2 = max(abs((np.array(jacobi.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_, 1, 0, False)) - v_gauss)).tolist())
+    for i in range(2, 50):
+        v1 = v2
+        v2 = max(abs((np.array(jacobi.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_, i, 0, False)) - v_gauss)).tolist())
+        erro.append(v2)
+        taxa.append(1 - (v2 / v1))
+    print('\n\nERRO A CADA ITERAÇÃO')
+    print(erro)
+    print('\n\nTAXA DE REDUÇÃO A CADA ITERAÇÃO')
+    print(taxa)
+    print('\n\nTAXA DE REDUÇÃO MÉDIA')
+    print(sum(taxa) / len(taxa))
+
+
 if __name__ == "__main__":
-    gauss_plot_erro()
+    reducao_erro()

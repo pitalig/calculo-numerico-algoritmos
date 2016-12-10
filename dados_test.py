@@ -1,5 +1,6 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
+import math
 
 
 def y(x):  # Função y(x)
@@ -7,7 +8,7 @@ def y(x):  # Função y(x)
 
 
 def y_2(x):
-    return -1 / (x ** 2)
+    return -1 / math.pow(x, 2)
 
 
 def y_3(x):
