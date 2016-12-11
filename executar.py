@@ -6,6 +6,7 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 
+import bisseccao
 import construtor
 import gauss
 import jacobi
@@ -137,6 +138,27 @@ def gauss_plot_erro_log():
     plt.show()
 
 
+# Determina o valor de n necessário para atingir determinado erro
+def determina_n():
+    # Calcula o erro_gauss do método de Gauss
+    erro_gauss = gauss.erro_n(y, q, r, a, b, a_, b_, 41, 5)
+    n_erro_gauss = range(5, 41, 5)
+
+    # Calcula e imprime o polinomio interpolador pelo método de mínimos quadrados
+    mmq = minimos.polin(n_erro_gauss, erro_gauss)
+    print('CONSTANTES POLINÔMIO INTERPOLADOR')
+    print(mmq[1])
+
+    # Le o erro desejado
+    erro_desejado = float(input('Insira o erro desejado '))
+
+    def mmq_erro(x):
+        return mmq[0](x) - erro_desejado
+
+    n_erro = bisseccao.bissec(mmq_erro, 1, 500, 0.1, 0, False)
+    print('Para garantir um erro inferior a {:.0e} é necessário n={:.0f}'.format(erro_desejado, n_erro))
+
+
 # Imprime a taxa de redução do erro entre a solução de Jacobi e Gauss para cada iteração.
 def reducao_erro():
     n = outros.set_n(a, b)
@@ -158,4 +180,4 @@ def reducao_erro():
 
 
 if __name__ == "__main__":
-    reducao_erro()
+    determina_n()

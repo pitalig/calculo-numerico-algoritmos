@@ -9,7 +9,7 @@ import numpy as np
 # Resolve equação pelo método da bissecção.
 # Entradas: função, extremos do chute inicial, tolerancia e criticidade de parada
 # Retorno: solução
-def bissec(f, m1, m2, tol, crit_parada):
+def bissec(f, m1, m2, tol, crit_parada, prin=True):
     tab = [["iter", "m1", "m2", "alpha", "f(alpha)"]]
     itera = 0
     bool_val = True
@@ -26,7 +26,9 @@ def bissec(f, m1, m2, tol, crit_parada):
             bool_val = (0.25 * abs(m1 - m2) > tol)
         elif crit_parada == 1:
             bool_val = (f(alpha - tol) * f(alpha + tol) > 0)
-    return tab
+    if prin:
+        print(np.matrix(tab))
+    return alpha
 
 
 # ----------------teste----------------
@@ -43,9 +45,9 @@ if __name__ == "__main__":
     m1 = -1
     m2 = 1
 
-    print(np.matrix(bissec(f, m1, m2, tol, 0)))
+    bissec(f, m1, m2, tol, 0)
 
-    print(np.matrix(bissec(f, m1, m2, tol, 1)))
+    bissec(f, m1, m2, tol, 1)
 
     print("teste2")
 
@@ -58,14 +60,14 @@ if __name__ == "__main__":
     m1 = 0
     m2 = math.pi / 2  # a raíz da equação no intervalo desejado é pi/4
 
-    print(np.matrix(bissec(f, m1, m2, tol, 0)))
+    bissec(f, m1, m2, tol, 0)
 
-    print(np.matrix(bissec(f, m1, m2, tol, 1)))
+    bissec(f, m1, m2, tol, 1)
 
     # definindo novos limites
     m1 = 0
     m2 = 2
 
-    print(np.matrix(bissec(f, m1, m2, tol, 0)))
+    bissec(f, m1, m2, tol, 0)
 
-    print(np.matrix(bissec(f, m1, m2, tol, 1)))
+    bissec(f, m1, m2, tol, 1)

@@ -17,7 +17,8 @@ menu = {
     '2': executar.solucoes_residuo,
     '3': executar.gauss_plot_erro,
     '4': executar.gauss_plot_erro_log,
-    '5': executar.reducao_erro,
+    '5': executar.determina_n,
+    '6': executar.reducao_erro,
     '0': finalizar
 }
 
@@ -31,7 +32,8 @@ def menu_principal():
     print('2 - Comparar o resíduo entre as soluções de Gauss e Jacobi')
     print('3 - Exibir o gráfico de erro para a solução de Gauss')
     print('4 - Exibir o gráfico do logaritmo do erro para a solução de Gauss')
-    print('5 - Analisar o erro a cada iteração para solução de Jacobi')
+    print('5 - Determinar o valor de n necessário para atingir determinado erro')
+    print('6 - Analisar o erro a cada iteração para solução de Jacobi')
     print('\n0 - Sair')
     escolha = input()
 
