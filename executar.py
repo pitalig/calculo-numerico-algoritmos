@@ -161,15 +161,21 @@ def determina_n():
 
 # Imprime a taxa de redução do erro entre a solução de Jacobi e Gauss para cada iteração.
 def reducao_erro():
+	# Define o valor de N e calcula a solução de Gauss para o N determinado
     n = outros.set_n(a, b)
     v_gauss = np.array(gauss.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_))
+	# Cria dois vetores vazios, para armazenar os valores do erro e a taxa
     erro = []
     taxa = []
+	# Calcula a solução de Jacobi para n_max=1, calcula o erro (módulo da diferença entre o vetor solução de Gauss e Jacobi) e v2 recebe apenas o valor máximo do erro.
     v2 = max(abs((np.array(jacobi.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_, 1, 0, False)) - v_gauss)).tolist())
     for i in range(2, 50):
         v1 = v2
+		# Calcula a solução de Jacobi para n_max=i, calcula o erro (módulo da diferença entre o vetor solução de Gauss e Jacobi) e v2 recebe apenas o valor máximo do erro.
         v2 = max(abs((np.array(jacobi.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_, i, 0, False)) - v_gauss)).tolist())
+		# Adiciona o erro máximo ao vetor erro. 
         erro.append(v2)
+		# Adiciona a taxa (1 - ((erro n_max=i-1)/(erro n_max=i)) ao vetor taxa
         taxa.append(1 - (v2 / v1))
     print('\n\nERRO A CADA ITERAÇÃO')
     print(erro)
