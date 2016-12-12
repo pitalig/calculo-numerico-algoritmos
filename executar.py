@@ -32,52 +32,61 @@ def imprime_matriz_vetor():
 # *Resíduo: para A*x = v -> resíduo = |(A * vetor_solução) - v|
 def solucoes_residuo():
     n = outros.set_n(a, b)
+    prin = int(input('Exibir resultados detalhados? (0 - não / 1 - sim) '))
 
     # Inicia o tempo
-    start_time = time.time()
+    start_time = [time.time()]
 
     print('\n\n---------- SOLUÇÕES ----------')
     # Soluciona a matriz utilizando a solução real conhecida
-    print('\n\n---------- REAL ----------')
-    print(solve.v_sol(y, n['x']))
+    if prin == 1:
+        print('\n\n---------- REAL ----------')
+        print(solve.v_sol(y, n['x']))
 
     # Soluciona a matriz pelo método de Gauss
     print('\n\n---------- GAUSS ----------')
     v1 = gauss.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_)
-    print(v1)
+    if prin == 1:
+        print(v1)
     # Calcula o resíduo para solução de Gauss
-    print('\nRESÍDUO')
     res_gauss = outros.residuo(construtor.matriz(q, n['x'], n['h'], n['n']),
                                construtor.vetor(r, n['x'], n['h'], n['n'], a_, b_),
                                v1)
-    print(res_gauss)
+    if prin == 1:
+        print('\nRESÍDUO')
+        print(res_gauss)
     print('\nRESÍDUO MAX')
     print(max(res_gauss))
 
     # Soluciona a matriz pelo método de Jacobi
     print('\n\n---------- JACOBI ----------')
+    start_time.append(time.time())
     n_max = int(input('\nInsira o número máximo de iterações desejado '))
     tol = float(input('\nInsira a tolerância desejada '))
+    start_time.append(time.time())
     v2 = jacobi.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_, n_max, tol)
-    print(v2)
+    if prin == 1:
+        print(v2)
     # Calcula o resíduo para solução de Jacobi
-    print('\nRESÍDUO')
     res_jacobi = outros.residuo(construtor.matriz(q, n['x'], n['h'], n['n']),
                                 construtor.vetor(r, n['x'], n['h'], n['n'], a_, b_),
                                 v2)
-    print(res_jacobi)
+    if prin == 1:
+        print('\nRESÍDUO')
+        print(res_jacobi)
     print('\nRESÍDUO MAX')
     print(max(res_jacobi))
 
     # Compara os resíduos de Gauss e Jacobi
     print('\n\n---------- DIFERENÇA ENTRE RESÍDUOS ----------')
     dif_res = abs(np.array(res_jacobi) - np.array(res_gauss)).tolist()
-    print(dif_res)
+    if prin == 1:
+        print(dif_res)
     print('\nDIFERENÇA MAX')
     print(max(dif_res))
 
     # Para o contador de tempo e imprime o resultado
-    print("\n\n---------- %s SEGUNDOS ----------" % (time.time() - start_time))
+    print("\n\n---------- %s SEGUNDOS ----------" % ((start_time[1] - start_time[0]) + (time.time() - start_time[2])))
 
 
 # Calcula a solução de Gauss e plota um gráfico do erro

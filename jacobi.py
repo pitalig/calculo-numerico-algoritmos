@@ -30,7 +30,7 @@ def v_sol(m, v, n_max, tol, prin):
             break
     # Retorna o vetor solução
     if prin:
-        print('Foram feitas ', i, ' iterações.')
+        print('\nForam feitas ', i, ' iterações.')
     return x.tolist()
 
 
