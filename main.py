@@ -19,6 +19,7 @@ menu = {
     '4': executar.gauss_plot_erro_log,
     '5': executar.determina_n,
     '6': executar.reducao_erro,
+    '7': executar.interpolador_lagrange,
     '0': finalizar
 }
 
@@ -34,6 +35,7 @@ def menu_principal():
     print('4 - Exibir o gráfico do logaritmo do erro para a solução de Gauss')
     print('5 - Determinar o valor de n necessário para atingir determinado erro')
     print('6 - Analisar o erro a cada iteração para solução de Jacobi')
+    print('7 - Calcular o Polinômio Interpolador de Lagrange e comparar com a solução real')
     print('\n0 - Sair')
     escolha = input()
 

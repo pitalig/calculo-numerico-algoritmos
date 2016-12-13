@@ -10,6 +10,7 @@ import bisseccao
 import construtor
 import gauss
 import jacobi
+import lagrange
 import minimos
 import outros
 import solve
@@ -170,21 +171,25 @@ def determina_n():
 
 # Imprime a taxa de redução do erro entre a solução de Jacobi e Gauss para cada iteração.
 def reducao_erro():
-	# Define o valor de N e calcula a solução de Gauss para o N determinado
+    # Define o valor de N e calcula a solução de Gauss para o N determinado
     n = outros.set_n(a, b)
     v_gauss = np.array(gauss.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_))
-	# Cria dois vetores vazios, para armazenar os valores do erro e a taxa
+    # Cria dois vetores vazios, para armazenar os valores do erro e a taxa
     erro = []
     taxa = []
-	# Calcula a solução de Jacobi para n_max=1, calcula o erro (módulo da diferença entre o vetor solução de Gauss e Jacobi) e v2 recebe apenas o valor máximo do erro.
+    # Calcula a solução de Jacobi para n_max=1
+    # Calcula o erro (módulo da diferença entre o vetor solução de Gauss e Jacobi)
+    # v2 recebe apenas o valor máximo do erro.
     v2 = max(abs((np.array(jacobi.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_, 1, 0, False)) - v_gauss)).tolist())
     for i in range(2, 50):
         v1 = v2
-		# Calcula a solução de Jacobi para n_max=i, calcula o erro (módulo da diferença entre o vetor solução de Gauss e Jacobi) e v2 recebe apenas o valor máximo do erro.
+        # Calcula a solução de Jacobi para n_max=i
+        # Calcula o erro (módulo da diferença entre o vetor solução de Gauss e Jacobi)
+        # v2 recebe apenas o valor máximo do erro.
         v2 = max(abs((np.array(jacobi.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_, i, 0, False)) - v_gauss)).tolist())
-		# Adiciona o erro máximo ao vetor erro. 
+        # Adiciona o erro máximo ao vetor erro.
         erro.append(v2)
-		# Adiciona a taxa (1 - ((erro n_max=i-1)/(erro n_max=i)) ao vetor taxa
+        # Adiciona a taxa (1 - ((erro n_max=i-1)/(erro n_max=i)) ao vetor taxa
         taxa.append(1 - (v2 / v1))
     print('\n\nERRO A CADA ITERAÇÃO')
     print(erro)
@@ -194,5 +199,24 @@ def reducao_erro():
     print(sum(taxa) / len(taxa))
 
 
+# Calcula e imprime o valor de f(x) para um x inserido pelo usuário, utilizando o polinômio interpolador
+# Compara o valor obtido com o da função real
+# Plota o gráfico da solução de lagrange e da solução real
+def interpolador_lagrange():
+    grau = 1 + int(input('Insira o grau do polinômio interpolador: '))
+    intervalo = float(input('Insira o tamanho da área a ser analisada: '))
+    x_ = np.linspace(0, intervalo, grau).tolist()
+    y_ = solve.v_sol(y, x_)
+    polinomio = lagrange.pol_interpola(x_, y_)
+    x_plot = np.arange(0, intervalo, 0.1)
+    y_plot = solve.v_sol(y, x_plot)
+    y_plot2 = [polinomio(x_i) for x_i in x_plot]
+    plt.plot(x_, y_, 'ko', label='Pontos de referência')
+    plt.plot(x_plot, y_plot, label='Solução real')
+    plt.plot(x_plot, y_plot2, label='Solução lagrange')
+    plt.legend(loc=2)
+    plt.show()
+
+
 if __name__ == "__main__":
-    determina_n()
+    interpolador_lagrange()
