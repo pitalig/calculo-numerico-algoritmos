@@ -36,17 +36,17 @@ def solucoes_residuo():
     n = outros.set_n(a, b)
     prin = int(input('Exibir resultados detalhados? (0 - não / 1 - sim) '))
 
-    # Inicia o tempo
-    start_time = [time.time()]
-
-    print('\n\n---------- SOLUÇÕES ----------')
+    print('\n---------- SOLUÇÕES ----------')
     # Soluciona a matriz utilizando a solução real conhecida
     if prin == 1:
-        print('\n\n---------- REAL ----------')
+        print('\n-------------------- REAL --------------------')
         print(solve.v_sol(y, n['x']))
 
     # Soluciona a matriz pelo método de Gauss
-    print('\n\n---------- GAUSS ----------')
+    print('\n-------------------- GAUSS --------------------')
+
+    start_time = time.time()
+
     v1 = gauss.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_)
     if prin == 1:
         print(v1)
@@ -59,13 +59,13 @@ def solucoes_residuo():
         print(res_gauss)
     print('\nRESÍDUO MAX')
     print(max(res_gauss))
+    print("\n---------- {:.06f} S ----------".format(abs(start_time - time.time())))
 
     # Soluciona a matriz pelo método de Jacobi
-    print('\n\n---------- JACOBI ----------')
-    start_time.append(time.time())
+    print('\n-------------------- JACOBI --------------------')
     n_max = int(input('\nInsira o número máximo de iterações desejado '))
-    tol = float(input('\nInsira a tolerância desejada '))
-    start_time.append(time.time())
+    tol = float(input('Insira a tolerância desejada '))
+    start_time = time.time()
     v2 = jacobi.v_sol_mh(q, r, n['x'], n['h'], n['n'], a_, b_, n_max, tol)
     if prin == 1:
         print(v2)
@@ -78,17 +78,15 @@ def solucoes_residuo():
         print(res_jacobi)
     print('\nRESÍDUO MAX')
     print(max(res_jacobi))
+    print("\n---------- {:.06f} S ----------".format(abs(start_time - time.time())))
 
     # Compara os resíduos de Gauss e Jacobi
-    print('\n\n---------- DIFERENÇA ENTRE RESÍDUOS ----------')
+    print('\n-------------------- DIFERENÇA ENTRE RESÍDUOS --------------------')
     dif_res = abs(np.array(res_jacobi) - np.array(res_gauss)).tolist()
     if prin == 1:
         print(dif_res)
     print('\nDIFERENÇA MAX')
     print(max(dif_res))
-
-    # Para o contador de tempo e imprime o resultado
-    print("\n\n---------- %s SEGUNDOS ----------" % ((start_time[1] - start_time[0]) + (time.time() - start_time[2])))
 
 
 # Calcula a solução de Gauss e plota um gráfico do erro
@@ -157,7 +155,7 @@ def determina_n():
 
     # Calcula e imprime o polinomio interpolador pelo método de mínimos quadrados
     mmq = minimos.polin(n_erro_gauss, erro_gauss)
-    print('CONSTANTES POLINÔMIO INTERPOLADOR')
+    print('CONSTANTES POLINÔMIO OBTIDO POR MÍNIMOS QUADRADOS')
     print(mmq[1])
 
     # Le o erro desejado
@@ -238,4 +236,4 @@ def interpolador_lagrange():
 
 
 if __name__ == "__main__":
-    determina_n()
+    solucoes_residuo()

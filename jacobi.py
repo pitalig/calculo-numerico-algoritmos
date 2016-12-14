@@ -26,6 +26,7 @@ def v_sol(m, v, n_max, tol, prin):
         x_old = x.copy()
         x = (v - np.dot(r, x)) / d
         # Verifica a tolerância
+        # O método np.allclose comapara todos os elementos dos dois vetores e retorna True caso a norma < tol.
         if np.allclose(x, x_old, atol=tol, rtol=tol):
             break
     # Retorna o vetor solução
