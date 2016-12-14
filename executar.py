@@ -12,6 +12,7 @@ import gauss
 import jacobi
 import lagrange
 import minimos
+import newton
 import outros
 import solve
 from dados import *
@@ -165,8 +166,26 @@ def determina_n():
     def mmq_erro(x):
         return mmq[0](x) - erro_desejado
 
-    n_erro = bisseccao.bissec(mmq_erro, 1, 500, 0.1, 0, False)
-    print('Para garantir um erro inferior a {:.0e} é necessário n={:.0f}'.format(erro_desejado, n_erro))
+    def mmq_erro_deriv(x):
+        return - (mmq[1][0] * (x ** 2) + 2 * mmq[1][1] * x + 3 * mmq[1][2]) / x ** 4
+
+    # Resolução por Bissecção
+    start_time = time.time()
+    n_erro = bisseccao.bissec(mmq_erro, 1, 500, 0.1, 0)
+    total_time = abs(start_time - time.time())
+    print('--------------- Utlizando Bissecção ---------------')
+    print('Para garantir um erro inferior a {:.0e} é necessário n={:.0f}'.format(erro_desejado, n_erro[0]))
+    print('Número de iterações: {}'.format(n_erro[1]))
+    print('Tempo consumido: {:.6f} segundos'.format(total_time))
+
+    # Resolução por Newton
+    start_time = time.time()
+    n_erro = newton.newton(mmq_erro, mmq_erro_deriv, 10, 1000, 0.1)
+    total_time = abs(start_time - time.time())
+    print('--------------- Utlizando Newton ---------------')
+    print('Para garantir um erro inferior a {:.0e} é necessário n={:.0f}'.format(erro_desejado, n_erro[0]))
+    print('Número de iterações: {}'.format(n_erro[1]))
+    print('Tempo consumido: {:.6f} segundos'.format(total_time))
 
 
 # Imprime a taxa de redução do erro entre a solução de Jacobi e Gauss para cada iteração.
@@ -219,4 +238,4 @@ def interpolador_lagrange():
 
 
 if __name__ == "__main__":
-    interpolador_lagrange()
+    determina_n()
