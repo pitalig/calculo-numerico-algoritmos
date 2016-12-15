@@ -216,8 +216,6 @@ def reducao_erro():
     print(sum(taxa) / len(taxa))
 
 
-# Calcula e imprime o valor de f(x) para um x inserido pelo usuário, utilizando o polinômio interpolador
-# Compara o valor obtido com o da função real
 # Plota o gráfico da solução de lagrange e da solução real
 def interpolador_lagrange():
     grau = 1 + int(input('Insira o grau do polinômio interpolador: '))
@@ -230,7 +228,10 @@ def interpolador_lagrange():
     y_plot2 = [polinomio(x_i) for x_i in x_plot]
     plt.plot(x_, y_, 'ko', label='Pontos de referência')
     plt.plot(x_plot, y_plot, label='Solução real')
-    plt.plot(x_plot, y_plot2, label='Solução lagrange')
+    plt.plot(x_plot, y_plot2, label='Solução Lagrange')
+    plt.title('Interpolador de Lagrange')
+    plt.xlabel('x')
+    plt.ylabel('f(x)')
     plt.legend(loc=2)
     plt.show()
 
