@@ -1,5 +1,7 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
+# Módulo Largange: Métodos para criação do polinômio interpolador de lagrange
+
 import matplotlib.pyplot as mat
 from numpy import arange
 

@@ -1,5 +1,9 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
+# Módulo executar: responsável pela execução principal do programa
+# Utiliza todos os outros módulos desenvolvidos e expoe de forma agradável os resultados
+
+# Importa as bibliotecas extras utilizadas
 import pprint
 import time
 
@@ -28,10 +32,10 @@ def imprime_matriz_vetor():
     pprint.pprint(construtor.vetor(r, n['x'], n['h'], n['n'], a_, b_))
 
 
-# Imprime as soluções reais, de Gauss e de Jacobi.
+# Imprime as soluções real, de Gauss e de Jacobi.
 # Imprime o resíduo* das soluções de Gauss e de Jacobi
 # Imprime a diferença entre os resíduos calculados
-# *Resíduo: para A*x = v -> resíduo = |(A * vetor_solução) - v|
+# *Resíduo: para A*x = b -> resíduo = |(A * vetor_solução) - b|
 def solucoes_residuo():
     n = outros.set_n(a, b)
     prin = int(input('Exibir resultados detalhados? (0 - não / 1 - sim) '))
@@ -218,14 +222,19 @@ def reducao_erro():
 
 # Plota o gráfico da solução de lagrange e da solução real
 def interpolador_lagrange():
+    # Define o grau do polinomio e o intervalo a ser plotado no gráfico
     grau = 1 + int(input('Insira o grau do polinômio interpolador: '))
     intervalo = float(input('Insira o tamanho da área a ser analisada: '))
+    # Define o intervalo de x
     x_ = np.linspace(0, intervalo, grau).tolist()
+    # Calcula a solução real para o intervalo
     y_ = solve.v_sol(y, x_)
+    # Calcula a solução do polinomio no intervalo
     polinomio = lagrange.pol_interpola(x_, y_)
     x_plot = np.arange(0, intervalo, 0.1)
     y_plot = solve.v_sol(y, x_plot)
     y_plot2 = [polinomio(x_i) for x_i in x_plot]
+    # Plota os resultados
     plt.plot(x_, y_, 'ko', label='Pontos de referência')
     plt.plot(x_plot, y_plot, label='Solução real')
     plt.plot(x_plot, y_plot2, label='Solução Lagrange')
@@ -236,5 +245,6 @@ def interpolador_lagrange():
     plt.show()
 
 
+# Teste
 if __name__ == "__main__":
     solucoes_residuo()

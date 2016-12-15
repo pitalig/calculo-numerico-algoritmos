@@ -1,5 +1,9 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
+# Módulo outros:
+# Método para calculo de resíduo (Ax-b) de um vetor solução
+# Método para definir os valores de n (inserido pelo usuário), h e a malha de pontos x.
+
 import numpy as np
 
 

@@ -1,5 +1,9 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
+# Módulo de Gauss:
+# Métodos de calculo da solução de um sistema linear por eliminação de gauss
+# Método para calculo do erro da solução de gauss em relação a solução real
+
 import numpy as np
 
 import construtor
@@ -30,10 +34,6 @@ def v_sol(m, v, n):
             for k in range(j, n):
                 m[i][k] += mult * m[j][k]
             v[i] += mult * v[j]
-    # print("Matriz escalonada:")
-    # print(np.matrix(m))
-    # print("Vetor auxiliar após escalonamento:")
-    # print(np.matrix(v))
 
     # Resolve a matriz escalonada
     x = [None] * n

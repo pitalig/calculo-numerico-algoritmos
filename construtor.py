@@ -1,5 +1,6 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
+# Módulo construtor: contém os métodos de construção da matriz do sistema e do vetor de termos independentes
 
 
 # Constroi a matriz do sistema

@@ -1,7 +1,10 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
-import gauss
+# Módulo mínimos: Método dos mínimos quadrados para ajuste de valores
+
 import numpy as np
+
+import gauss
 
 
 # Cria o polinômio interpolador de terceiro grau pelo método de mínimos quadrados.

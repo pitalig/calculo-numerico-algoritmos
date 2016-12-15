@@ -1,5 +1,7 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
+# Módulo Jacobi: Métodos de Jacobi para resolver Sistemas de Equações
+
 from pprint import pprint
 
 import numpy as np

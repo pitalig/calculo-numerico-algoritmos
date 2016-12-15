@@ -1,5 +1,7 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
+# Módulo main: Método principal com menu para execução
+
 import os
 import sys
 

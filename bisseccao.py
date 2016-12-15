@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-# encoding: utf-8
-# Método da bissecção ou dicotomia
+# -*- coding: utf-8 -*-
+# Módulo bissecção: Método da bissecção ou dicotomia para resolver equações
+
 import math
 
 import numpy as np
@@ -8,11 +9,12 @@ import numpy as np
 
 # Resolve equação pelo método da bissecção.
 # Entradas: função, extremos do chute inicial, tolerancia e criticidade de parada
-# Retorno: solução
+# Retorno: solução, número de iterações
 def bissec(f, m1, m2, tol, crit_parada, prin=False):
     tab = [["iter", "m1", "m2", "alpha", "f(alpha)"]]
     itera = 1
     bool_val = True
+    # Executa iterações enquanto bool_val for verdadeiro
     while bool_val:
         alpha = 0.5 * (m1 + m2)
         linha = [itera, m1, m2, alpha, f(alpha)]
@@ -22,6 +24,7 @@ def bissec(f, m1, m2, tol, crit_parada, prin=False):
         if f(alpha) * f(m1) > 0 or f(alpha) * f(m1) == 0:
             m1 = alpha
         itera += 1
+        # Verifica os critérios de parada
         if crit_parada == 0:
             bool_val = (0.25 * abs(m1 - m2) > tol)
         elif crit_parada == 1:

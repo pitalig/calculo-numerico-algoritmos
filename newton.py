@@ -1,10 +1,15 @@
 #!/usr/bin/env python
 # encoding: utf-8
+# Módulo newton: Método de Newton para resolver equações
+
 import math
 
 import numpy as np
 
 
+# Resolve equação pelo método de newton.
+# Entradas: função, derivada da função, vetor chute inicial, número máximo de iterações, precisão
+# Retorno: solução, número de iterações
 def newton(f, deriv_f, x_0, n_max, precisao, prin=False):
     itera = [("NumIter", "itera", "new itera", "f(new itera)", "controle")]
     i = 1

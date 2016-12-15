@@ -1,5 +1,6 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
+# Modulo solve: Método obter o vetor solução através da solução analítica já conhecida
 
 
 # Calcula o vetor solução para uma malha de pontos, utilizando a solução conhecida.
